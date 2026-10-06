@@ -1,0 +1,47 @@
+name: Wydaj moduł Foundry
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: foundry-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sprawdź JavaScript
+        shell: bash
+        run: |
+          for file in scripts/*.mjs companion/*.js; do node --check "$file"; done
+      - name: Przygotuj manifest i ZIP
+        env:
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          if [ "$REF_TYPE" = "tag" ]; then
+            python3 tools/build_release.py --tag "$REF_NAME" > release-result.json
+          else
+            python3 tools/build_release.py > release-result.json
+          fi
+      - name: Opublikuj wydanie
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          SOURCE_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          TAG=$(python3 -c 'import json; print(json.load(open("release-result.json"))["tag"])')
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Ta wersja już istnieje. Zwiększ version w module.json; istniejących wydań nie nadpisujemy."
+            exit 1
+          fi
+          gh release create "$TAG" release/module.json release/module.zip release/SHA256SUMS.txt --target "$SOURCE_SHA" --title "KULT GM Companion $TAG" --generate-notes --latest
