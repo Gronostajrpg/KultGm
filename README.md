@@ -37,3 +37,14 @@ Od wersji 1.3.1 paczka zawiera tylko neutralny scenariusz DEMO. The Island of th
 ## Usuwanie scenariuszy
 
 Wybierz scenariusz u góry i kliknij **Usuń scenariusz**. Potwierdzenie usuwa wyłącznie ten scenariusz z lokalnego i połączonego serwerowego zapisu. Najpierw rozstrzygnij wybór kopii w panelu Zapis MG. Przy błędzie serwera lokalne dane zostają zachowane. Po usunięciu ostatniego scenariusza powstaje świeże DEMO. Usunięte DEMO nie wraca przy ponownym otwarciu, jeśli masz inne scenariusze. Pobierane kopie JSON i zapisy na innych serwerach nie są zmieniane.
+
+## Obsługa od wersji 1.4.0
+
+- **Sesja** służy do prowadzenia: aktualna lokacja, przejścia, sceny i wydarzenia z filtrami, stan świata, zegary, zasoby i notatki. Przycisk „Zmień czas” ustawia dzień/godzinę albo przesuwa czas o 15/30 minut lub 1/3 godziny.
+- **Edytor** łączy mapę, sceny przy lokacjach, wszystkie sceny, wydarzenia, notatki i przygotowanie stanu świata. Lokacje przeciągaj, łącz uchwytami i edytuj prawym przyciskiem.
+- **Historia sesji** domyślnie pokazuje zdarzenia gry; „Wszystkie zmiany” dodaje zmiany edytorskie.
+- **Zapis / ustawienia** zbiera wybór lokalnej/serwerowej kopii, ustawienia Foundry oraz import. Po wybraniu kopii działa automatyczny zapis. Status zapisu u góry otwiera ten panel.
+- Import pozwala dodawać scenariusze (konflikty ID tworzą oddzielne kopie) lub zastąpić całość. Ostatni import można cofnąć do zamknięcia lub odświeżenia panelu; cofnięcie przywraca całą wcześniejszą kopię, również zamiast zmian wykonanych po imporcie.
+- Okna potwierdzeń i wprowadzania danych są częścią aplikacji. Panel Foundry można zwinąć do paska albo zmienić rozmiar, przeciągając prawy dolny róg.
+
+Aktualizacja zachowuje istniejące lokalne i serwerowe scenariusze. Paczka zawiera wyłącznie neutralne DEMO. Obsługa panelu Foundry jest testowana z atrapami API; należy potwierdzić zachowanie na działającym serwerze.
