@@ -26,7 +26,7 @@ Repozytorium i wydania są publiczne. Foundry pobiera aktualizacje bez logowania
 
 ## Zapis i zakres
 
-Stan kampanii pozostaje w lokalnej pamięci przeglądarki, osobno dla świata i konta MG. GitHub i wydania zawierają kod i dane początkowe; nie zawierają bieżących notatek ani sesji. Kopie JSON wykonuj regularnie. Aktualizacja plików modułu nie zastępuje lokalnego stanu.
+Od wersji 1.3.0 stan kampanii zapisuje się w danych konta MG na jego serwerze Foundry. Serwery innych MG mają oddzielne dane. Lokalna pamięć przeglądarki pozostaje kopią awaryjną, osobno dla świata i konta. Przy istniejącym zapisie serwerowym panel pozwala wybrać kopię; późniejsze zmiany zapisuje automatycznie. Na innym urządzeniu zaloguj się do tego samego konta w tym samym świecie i wybierz Wczytaj z serwera. Inni MG na tym samym serwerze mają szerokie uprawnienia: rozdzielenie dotyczy osobnych serwerów, nie ochrony przed administratorami. GitHub i wydania zawierają kod i dane początkowe; nie zawierają bieżących notatek ani sesji. Kopie JSON wykonuj regularnie. Aktualizacja plików modułu nie zastępuje lokalnego stanu.
 
 Moduł przygotowano dla Foundry 12–14 na podstawie API; zgodność w rzeczywistym świecie wymaga sprawdzenia. Nie deklaruje wersji „verified”. Szczegóły obsługi i ręcznej instalacji: [INSTALACJA.md](INSTALACJA.md).
 
@@ -34,3 +34,6 @@ Moduł przygotowano dla Foundry 12–14 na podstawie API; zgodność w rzeczywis
 
 Początkowy zestaw danych jest oparty na „The Island of the Dead” autorstwa Robina Liljenberga. Karty podają strony PDF; własne adaptacje pozostają materiałem MG. PDF, grafiki i pełny tekst scenariusza nie są częścią tej paczki. Moduł jest nieoficjalny i nie jest powiązany z wydawcami KULT ani Foundry.
 
+
+
+Lokacje edytuj prawym przyciskiem. Stan świata obsługuje własne pola, ich nazwy i usuwanie. Osobiste wydarzenia dodawaj i edytuj bezpośrednio na kartach PC.
