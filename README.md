@@ -33,3 +33,7 @@ Moduł przygotowano dla Foundry 12–14 na podstawie API; zgodność w rzeczywis
 ## Dane początkowe
 
 Od wersji 1.3.1 paczka zawiera tylko neutralny scenariusz DEMO. The Island of the Dead nie jest dołączany ani dodawany podczas uruchomienia. Istniejące scenariusze zapisane lokalnie lub na serwerze pozostają bez zmian. Własne materiały można tworzyć lub importować z kopii JSON.
+
+## Usuwanie scenariuszy
+
+Wybierz scenariusz u góry i kliknij **Usuń scenariusz**. Potwierdzenie usuwa wyłącznie ten scenariusz z lokalnego i połączonego serwerowego zapisu. Najpierw rozstrzygnij wybór kopii w panelu Zapis MG. Przy błędzie serwera lokalne dane zostają zachowane. Po usunięciu ostatniego scenariusza powstaje świeże DEMO. Usunięte DEMO nie wraca przy ponownym otwarciu, jeśli masz inne scenariusze. Pobierane kopie JSON i zapisy na innych serwerach nie są zmieniane.
