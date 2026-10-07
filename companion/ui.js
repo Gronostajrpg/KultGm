@@ -36,6 +36,7 @@ render=function(){
  if(target==='timeline')$('#content').innerHTML=historyMarkup();
  if(target==='save')$('#content').innerHTML=`<h1>Zapis i ustawienia</h1><div id="storage-tools">${storageMarkup()}</div><section class="panel"><h2>Kopie i import</h2><div class="row"><button data-ui="export">Pobierz kopię wszystkich danych</button><button data-ui="import">Importuj plik</button><button data-ui="undo-import" ${importUndo?'':'disabled'}>Cofnij ostatni import</button></div></section>${foundryPanel()}`;
  $('#nav').innerHTML=workspaceTabs.map(([id,name])=>b(name,'nav',id,id===view?'active':'')).join('');
+ if(target==='session'&&foundryBridge.catalog){for(const button of document.querySelectorAll('[data-action="copy-clue"]')){const extra=document.createElement('button');extra.type='button';extra.className='small';extra.textContent='Wyślij wskazówkę';extra.dataset.fv='clue';extra.dataset.clue=button.dataset.id;button.after(extra);}}
  document.body.dataset.view=target;
  $('#storageBadge').textContent=foundryBridge.catalog?serverSave.remote&&!serverSave.ready?'Wybierz kopię zapisu':serverSave.status:'Zapis lokalny';
 };
