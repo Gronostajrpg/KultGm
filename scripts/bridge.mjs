@@ -9,8 +9,9 @@ function open() {
   const bar=document.createElement('div');bar.className='kult-companion-bar';
   const title=document.createElement('strong');title.textContent='KULT · GM Companion';
   const minimize=document.createElement('button');minimize.textContent='Wróć do stołu';minimize.onclick=()=>{panel.hidden=true;};
+  const collapse=document.createElement('button');collapse.textContent='Zwiń do paska';collapse.onclick=()=>{panel.classList.toggle('collapsed');collapse.textContent=panel.classList.contains('collapsed')?'Rozwiń panel':'Zwiń do paska';};
   const close=document.createElement('button');close.textContent='Zamknij panel';close.onclick=()=>{disconnect();panel.remove();panel=null;frame=null;};
-  bar.append(title,minimize,close);frame=document.createElement('iframe');frame.title='Panel Mistrza Gry';
+  bar.append(title,collapse,minimize,close);frame=document.createElement('iframe');frame.title='Panel Mistrza Gry';
   const url=new URL(`modules/${MODULE}/companion/index.html`,document.baseURI);
   url.searchParams.set('world',game.world.id);url.searchParams.set('user',game.user.id);
   frame.src=url.href;panel.append(bar,frame);document.body.append(panel);
