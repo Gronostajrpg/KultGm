@@ -29,3 +29,27 @@ document.addEventListener('click',async e=>{const button=e.target.closest('[data
   if(action==='load'||action==='reload'){if(!confirm('Wczytać scenariusze z serwera i zastąpić lokalną kopię? Możesz wcześniej wykonać Kopię sesji.'))return;clearTimeout(serverSave.timer);button.disabled=true;try{const saved=await foundryRequest('loadCompanion');if(!saved)throw Error('Brak zapisu na serwerze.');const restored=validateDB(saved.data);cancelGraphGesture();db=restored;serverSave.revision=saved.revision;serverSave.remote=null;serverSave.ready=true;serverSave.dirty=false;localPersist();storageStatus('Wczytano zapis serwera · '+new Date(saved.at).toLocaleString('pl-PL'));render();}catch(error){storageStatus(error.message);button.disabled=false;}}
 });
 render();
+
+function withoutScenario(data,id){
+ const result=structuredClone(data);result.scenarios=result.scenarios.filter(a=>a.id!==id);
+ if(!result.scenarios.length)result.scenarios=[structuredClone(DEMO)];
+ if(!result.scenarios.some(a=>a.id===result.active))result.active=result.scenarios[0].id;
+ return result;
+}
+async function deleteCurrentScenario(){
+ if(serverSave.busy){alert('Poczekaj na zakończenie zapisu.');return;}
+ if(foundryBridge.catalog&&!serverSave.ready){alert('Najpierw wybierz kopię w panelu Zapis MG: wczytaj zapis serwera lub zapisz obecną kopię.');return;}
+ const selected=s(),id=selected.id;
+ if(!confirm('Usunąć scenariusz „'+selected.name+'” wraz z jego postaciami, notatkami i stanem sesji? Usunięcie obejmie zapis lokalny i połączony serwer Foundry. Pozostałe scenariusze zostaną zachowane. Przed usunięciem możesz wykonać Kopię sesji. Jeśli usuwasz ostatni scenariusz, pojawi się świeże DEMO.'))return;
+ clearTimeout(serverSave.timer);serverSave.busy=true;$('#deleteScenario').disabled=true;
+ try{
+  if(foundryBridge.catalog){
+   const result=await foundryRequest('saveCompanion',{data:withoutScenario(db,id),revision:serverSave.revision});
+   serverSave.revision=result.revision;serverSave.remote=null;
+   storageStatus('Usunięto scenariusz z serwera · '+new Date(result.at).toLocaleString('pl-PL'));
+  }
+  cancelGraphGesture();db=withoutScenario(db,id);localPersist();render();
+ }catch(error){alert('Nie usunięto scenariusza: '+error.message+' Dane lokalne zostały zachowane.');}
+ finally{serverSave.busy=false;$('#deleteScenario').disabled=false;if(serverSave.dirty&&serverSave.ready)scheduleServerSave();}
+}
+$('#deleteScenario').onclick=deleteCurrentScenario;
