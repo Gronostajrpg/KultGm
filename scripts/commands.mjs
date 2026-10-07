@@ -19,6 +19,19 @@ export async function execute(game, api, request) {
   if (!game.user?.isGM) throw Error('Tylko MG może wykonywać te działania.');
   const {action,payload={}} = request;
   if (action==='catalog') return catalog(game);
+  if (action==='loadCompanion') {
+    return game.user.getFlag('kult-gm-companion','workspace') || null;
+  }
+  if (action==='saveCompanion') {
+    const data=payload.data;
+    if(data?.version!==1||!Array.isArray(data.scenarios)||!data.scenarios.length||!data.scenarios.some(s=>s.id===data.active)||JSON.stringify(data).length>10000000)throw Error('Nieprawidłowa lub zbyt duża kopia scenariuszy.');
+    const previous=game.user.getFlag('kult-gm-companion','workspace');
+    if((previous?.revision||0)!==payload.revision)throw Error('Na serwerze jest nowszy zapis. Wczytaj go lub wykonaj lokalny eksport przed ponownym zapisem.');
+    const saved={revision:(previous?.revision||0)+1,at:new Date().toISOString(),data:structuredClone(data)};
+    // Server-owned user document; never accepts another user or world from the frame.
+    await game.user.setFlag('kult-gm-companion','workspace',saved);
+    return {revision:saved.revision,at:saved.at};
+  }
   if (action==='activateScene') {
     const scene=game.scenes.get(text(payload.id,100));
     if (!scene) throw Error('Scena nie istnieje w tym świecie.');
