@@ -30,10 +30,6 @@ Od wersji 1.3.0 stan kampanii zapisuje się w danych konta MG na jego serwerze F
 
 Moduł przygotowano dla Foundry 12–14 na podstawie API; zgodność w rzeczywistym świecie wymaga sprawdzenia. Nie deklaruje wersji „verified”. Szczegóły obsługi i ręcznej instalacji: [INSTALACJA.md](INSTALACJA.md).
 
-## Materiały scenariusza
+## Dane początkowe
 
-Początkowy zestaw danych jest oparty na „The Island of the Dead” autorstwa Robina Liljenberga. Karty podają strony PDF; własne adaptacje pozostają materiałem MG. PDF, grafiki i pełny tekst scenariusza nie są częścią tej paczki. Moduł jest nieoficjalny i nie jest powiązany z wydawcami KULT ani Foundry.
-
-
-
-Lokacje edytuj prawym przyciskiem. Stan świata obsługuje własne pola, ich nazwy i usuwanie. Osobiste wydarzenia dodawaj i edytuj bezpośrednio na kartach PC.
+Od wersji 1.3.1 paczka zawiera tylko neutralny scenariusz DEMO. The Island of the Dead nie jest dołączany ani dodawany podczas uruchomienia. Istniejące scenariusze zapisane lokalnie lub na serwerze pozostają bez zmian. Własne materiały można tworzyć lub importować z kopii JSON.
